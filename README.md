@@ -1,6 +1,6 @@
-# Multitenant Solution(IAM) [![CI](https://github.com/NeoSOFT-Technologies/node-rest/actions/workflows/ci.yml/badge.svg)](https://github.com/NeoSOFT-Technologies/node-rest/actions/workflows/ci.yml)
+# Multitenant Solution(IAM) [![CI](https://github.com/Moustafa1997/node-micro/actions/workflows/ci.yml/badge.svg)](https://github.com/Moustafa1997/node-micro/actions/workflows/ci.yml)
 
-A multitenancy starter project using Node.js, NestsJS, Express, and MySQL.
+A multitenancy starter project using Node.js, NestJS, Express, and MySQL.
 
 By running one command, you will get a production-ready Node.js app installed and configured on your machine. The project has microservice architecture with many built-in features in the skeleton, including continuous integration, docker support, authentication & authorization, request validation,  ORM support, API documentation, system logger, etc. To learn more about its features, check out the following list.
 
@@ -33,7 +33,7 @@ By running one command, you will get a production-ready Node.js app installed an
 - **Production-Ready Skeleton**
 - **Followed SOLID Principles**
 - **Microservice Architecture**: using [NestJS](https://docs.nestjs.com/microservices/basics)
-- **Multitenant APIs - Database Per Tenant**: [API documentation](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/api.md)
+- **Multitenant APIs - Database Per Tenant**: [API documentation](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/api.md)
 - **Authentication and authorization**: using [Keycloak](https://www.keycloak.org/)
 - **Validation**: request data validation using [Nest JS Pipe](https://docs.nestjs.com/techniques/validation)
 - **Logging**: using [winston](https://github.com/winstonjs/winston) 
@@ -69,7 +69,7 @@ To get started, clone the repository to your local computer. Use the following c
 
 ```bash
 // clone the application
-$ git clone https://github.com/NeoSOFT-Technologies/node-rest.git
+$ git clone https://github.com/Moustafa1997/node-micro.git
 ```
 #### Install The Dependencies
 
@@ -147,7 +147,7 @@ Please find below a detailed description of the app's folder structures:
 ## Documentation
 
 ### 1.  Setting up project on VM
-Following are the steps to set-up this repository on [Virtual Machine](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/vm.md).
+Following are the steps to set-up this repository on [Virtual Machine](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/vm.md).
 
 - Install Remote Desktop Application (Eg For Linux it is Remmina) in your Machine.
 - Launch the remote desktop which will look like this.
@@ -157,24 +157,24 @@ Following are the steps to set-up this repository on [Virtual Machine](https://g
 - Enter the IP address.
 - Once the IP address is verified the following screen will appear.
 - Enter the required credentials i.e admin and password, and then the VM is connected.
-- Open any browser and then clone the repository of node-rest boilerplate by copy pasting the link `https://github.com/NeoSOFT-Technologies/node-rest`
-- Open the Terminal in the `node-rest` directory and then type the following command - `docker-compose up` and the application will start.
+- Open any browser and then clone the repository of node-micro project by copy pasting the link `https://github.com/Moustafa1997/node-micro`
+- Open the Terminal in the `node-micro` directory and then type the following command - `docker-compose up` and the application will start.
 - Open the browser and hit the following  URL: `http://localhost:5000/api/docs` and the Swagger UI will be displayed.
 ---
 ### 2. Microservices
-- [Tenant Registration Service](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/microservices/tenant-registration.md)
-- [Tenant Master Service](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/microservices/tenant-master-service.md)
-- [Tenant Provisioning Service](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/microservices/tenant-provisioning.md)
-- [Tenant Configuration Service](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/microservices/tenant-config-service.md)
+- [Tenant Registration Service](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/microservices/tenant-registration.md)
+- [Tenant Master Service](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/microservices/tenant-master-service.md)
+- [Tenant Provisioning Service](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/microservices/tenant-provisioning.md)
+- [Tenant Configuration Service](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/microservices/tenant-config-service.md)
 
 ### 3. Consuming Microservices
-- [Multitenancy Rest Service](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/multitenancy-rest-service.md)
-- [Authentication](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/auth.md)
-- [Understand Microservices Communication](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/communication.md)
+- [Multitenancy Rest Service](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/multitenancy-rest-service.md)
+- [Authentication](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/auth.md)
+- [Understand Microservices Communication](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/communication.md)
 - [Video Demonstration](https://user-images.githubusercontent.com/87794374/147342616-5b38b414-fda5-4c11-8ebc-40ebcb59cc5b.mp4)
 
 ### 4. Metrics
-- [Coverage](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/coverage.md)
+- [Coverage](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/coverage.md)
 
 
 ## Video Tutorials
@@ -198,29 +198,30 @@ Following are the steps to set-up this repository on [Virtual Machine](https://g
 
 ## Contributing To This Project
 
-Contributions are welcome from anyone and everyone. We encourage you to review the [guiding principles for contributing](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/contribution.md)
+Contributions are welcome from anyone and everyone. We encourage you to review the [guiding principles for contributing](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/contribution.md)
 
-* [Bug reports](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/contribution/bug-reports.md)
-* [Feature requests](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/contribution/feature-requests.md)
-* [Pull requests](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/contribution/pull-requests.md)
+* [Bug reports](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/contribution/bug-reports.md)
+* [Feature requests](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/contribution/feature-requests.md)
+* [Pull requests](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/contribution/pull-requests.md)
 
 ## Issues and Discussions
 
-- [Create New Issue](https://github.com/NeoSOFT-Technologies/node-rest/issues/new)
-- [Check Existing Issues](https://github.com/NeoSOFT-Technologies/node-rest/issues)
-- [Discussions](https://github.com/NeoSOFT-Technologies/node-rest/discussions)
+- [Create New Issue](https://github.com/Moustafa1997/node-micro/issues/new)
+- [Check Existing Issues](https://github.com/Moustafa1997/node-micro/issues)
+- [Discussions](https://github.com/Moustafa1997/node-micro/discussions)
 
 ## Miscellaneous
 
-- [Git commits](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/miscellaneous/git-commits.md)
-- [Clean Docker Images](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/miscellaneous/clean-docker.md)
-- [Installation Prettier, Husky & Lint](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/miscellaneous/installation-pretteri-husky-lint.md)
+- [Git commits](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/miscellaneous/git-commits.md)
+- [Clean Docker Images](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/miscellaneous/clean-docker.md)
+- [Installation Prettier, Husky & Lint](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/miscellaneous/installation-pretteri-husky-lint.md)
 
-## Stay in touch
+## Author
 
-* Website - [https://www.neosofttech.com/](https://www.neosofttech.com/)
-* Twitter - [@neosofttech](https://twitter.com/neosofttech)
-* Meetup -  [https://www.meetup.com/neosoft-technologies/](https://www.meetup.com/neosoft-technologies/)
-* Medium -  [https://medium.com/@neosofttech-technologies-blog](https://medium.com/@neosofttech-technologies-blog)
-* GitHub - [https://github.com/NeoSOFT-Technologies](https://github.com/NeoSOFT-Technologies)
-* Discord - [NodeJS](https://discord.gg/9xW5gQhQa4)
+**Mustafa Fathy Abou El-Azm**
+
+* GitHub - [https://github.com/Moustafa1997](https://github.com/Moustafa1997)
+
+## License
+
+This project is licensed under the [Apache License 2.0](LICENSE).

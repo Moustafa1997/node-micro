@@ -1,4 +1,4 @@
-### Installation Of Node-Rest Reposirotry in Virtual Machine
+### Installation Of node-micro Repository in Virtual Machine
 
 Following are the steps to set-up this repository on Virtual Machine.
 
@@ -15,8 +15,8 @@ Following are the steps to set-up this repository on Virtual Machine.
 
 ![Selection_175](https://user-images.githubusercontent.com/87708447/165547051-bbf9c055-e58b-4dca-8f96-8c2230c2e374.png)
 
-- Open any browser and then clone the repository of node-rest boilerplate by copy pasting the link `https://github.com/NeoSOFT-Technologies/node-rest`
-- Open the Terminal in the `node-rest` directory and then type the following command - `docker-compose up` and the application will start.
+- Open any browser and then clone the repository of node-micro project by copy pasting the link `https://github.com/Moustafa1997/node-micro`
+- Open the Terminal in the `node-micro` directory and then type the following command - `docker-compose up` and the application will start.
 - Open the browser and hit the following  URL: `http://localhost:4004/` and the Console UI will be displayed.
 
 ---

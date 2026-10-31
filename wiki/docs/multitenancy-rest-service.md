@@ -18,7 +18,7 @@ This multitenancy-rest-service has been included to interact with the tenant mic
 - `/api/connect-database`- HTTP GET: It generates the connection string to a tenant database and connects to it.
 - `/api/create-table` - HTTP POST: It creates table in the database of the tenant.
 
-See full API documentation [here](https://github.com/NeoSOFT-Technologies/node-rest/blob/main/wiki/docs/api.md)
+See full API documentation [here](https://github.com/Moustafa1997/node-micro/blob/main/wiki/docs/api.md)
 
 ### Installation
 First run this command to install all dependency
