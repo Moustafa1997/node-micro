@@ -1,5 +1,6 @@
-CREATE USER nest;
-
 CREATE DATABASE IF NOT EXISTS rest_api;
-GRANT ALL PRIVILEGES ON rest_api.* TO 'user'@'%';
+
+CREATE USER IF NOT EXISTS 'nest'@'%';
 GRANT ALL PRIVILEGES ON rest_api.* TO 'nest'@'%';
+
+FLUSH PRIVILEGES;
