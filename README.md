@@ -22,7 +22,8 @@ By running one command, you will get a production-ready Node.js app installed an
 - [Contributing To This Project](#contributing-to-this-project)
 - [Issues and Discussions](#issues-and-discussions)
 - [Miscellaneous](#miscellaneous)
-- [Stay in touch](#stay-in-touch)
+- [Author](#author)
+- [License](#license)
 
 
 ## Features
