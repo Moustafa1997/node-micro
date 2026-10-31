@@ -14,5 +14,5 @@ export class ResourceDto {
   tenantName: string;
 
   clientName: string;
-  resourceDetails: ResourceDetails
+  resourceDetails: ResourceDetails;
 }

@@ -7,7 +7,16 @@ import { AuthService } from './auth/auth.service';
 import { PublicKeyCache } from './auth/cache.publicKey';
 import { KeycloakAuthGuard } from './auth/guards/keycloak-auth.guard';
 import config from './config';
-import { Keycloak, KeycloakAuthPolicy, KeycloakAuthResource, KeycloakClient, KeycloakRealm, KeycloakUser, KeycloakAuthScope, KeycloakAuthPermission } from './iam';
+import {
+  Keycloak,
+  KeycloakAuthPolicy,
+  KeycloakAuthResource,
+  KeycloakClient,
+  KeycloakRealm,
+  KeycloakUser,
+  KeycloakAuthScope,
+  KeycloakAuthPermission,
+} from './iam';
 
 @Module({
   imports: [
@@ -46,9 +55,18 @@ import { Keycloak, KeycloakAuthPolicy, KeycloakAuthResource, KeycloakClient, Key
   ],
   controllers: [AppController],
   providers: [
-    AppService, AuthService, PublicKeyCache, KeycloakAuthGuard,
-    Keycloak, KeycloakUser, KeycloakRealm, KeycloakAuthPolicy,
-    KeycloakAuthResource, KeycloakClient, KeycloakAuthScope, KeycloakAuthPermission
+    AppService,
+    AuthService,
+    PublicKeyCache,
+    KeycloakAuthGuard,
+    Keycloak,
+    KeycloakUser,
+    KeycloakRealm,
+    KeycloakAuthPolicy,
+    KeycloakAuthResource,
+    KeycloakClient,
+    KeycloakAuthScope,
+    KeycloakAuthPermission,
   ],
 })
-export class AppModule { }
+export class AppModule {}

@@ -91,20 +91,16 @@ export class TenantprovisionService {
     const DbConnection = ConnectionUtils.getConnection(this.config);
 
     return new Promise((res, rej) => {
-      DbConnection.query(
-        query,
-        [dbName, tableName, columns, values],
-        (err) => {
-          if (err) {
-            rej(err);
-          } else {
-            ConnectionUtils.endConnection(DbConnection);
-            res({
-              status: 'Data seeded successfully',
-            });
-          }
-        },
-      );
+      DbConnection.query(query, [dbName, tableName, columns, values], (err) => {
+        if (err) {
+          rej(err);
+        } else {
+          ConnectionUtils.endConnection(DbConnection);
+          res({
+            status: 'Data seeded successfully',
+          });
+        }
+      });
     });
   }
   async ping(tenantData: ProvisionTenantDto): Promise<Record<string, any>> {

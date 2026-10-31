@@ -1,35 +1,70 @@
 import {
-  Body, Controller, Delete, Get, HttpException, HttpStatus,
-  Patch, Post, Req, Res, UseFilters, UseGuards, UsePipes, ValidationPipe
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  HttpStatus,
+  Patch,
+  Post,
+  Req,
+  Res,
+  UseFilters,
+  UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AppService } from './app.service';
-import { ApiBearerAuth, ApiBody, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiParam,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthService } from './auth/auth.service';
 import { KeycloakAuthGuard } from './auth/guards/keycloak-auth.guard';
 import { Roles } from './auth/roles.decorator';
 import { Permissions } from './auth/permission.decorator';
 import { HttpErrorFilter } from './filter/http-exception.filter';
 import {
-  CredentialsDto, DbDetailsDto, LogoutDto, ProvisionTenantTableDto, RegisterTenantDto,
-  TenantUserDto, UpdateTenantDto, UsersQueryDto, UpdateUserDto, RefreshAccessTokenDto,
-  ClientDto, ResourceDto, PolicyDto, ScopeDto, PermissionDto, GetUsersInfoDto, CreateRoleDto,
-  UpdateRoleDto, GetRoleInfoDto, GetPermissionsDto, UpdatePermissionDto
+  CredentialsDto,
+  DbDetailsDto,
+  LogoutDto,
+  ProvisionTenantTableDto,
+  RegisterTenantDto,
+  TenantUserDto,
+  UpdateTenantDto,
+  UsersQueryDto,
+  UpdateUserDto,
+  RefreshAccessTokenDto,
+  ClientDto,
+  ResourceDto,
+  PolicyDto,
+  ScopeDto,
+  PermissionDto,
+  GetUsersInfoDto,
+  CreateRoleDto,
+  UpdateRoleDto,
+  GetRoleInfoDto,
+  GetPermissionsDto,
+  UpdatePermissionDto,
 } from './dto';
 import { Role, Permission } from './utils/enums';
 
 const ErrorMessage = {
   NOT_ALLOWED: 'Not Allowed',
-  ENTER_TENANTNAME: 'Please enter tenantName'
-}
+  ENTER_TENANTNAME: 'Please enter tenantName',
+};
 
 @Controller('api')
 @UseFilters(new HttpErrorFilter())
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private readonly authService: AuthService
-  ) { }
+    private readonly authService: AuthService,
+  ) {}
 
   @Post('login')
   @ApiTags('Authentication')
@@ -38,15 +73,19 @@ export class AppController {
   async login(@Body() body: CredentialsDto, @Res() res: Response) {
     try {
       const { tenantName, username } = body;
-      let response: { clientId: string, clientSecret: string };
+      let response: { clientId: string; clientSecret: string };
 
       if (tenantName && !username) {
-        throw new HttpException('Please enter userName', HttpStatus.BAD_REQUEST);
-      }
-      else if (tenantName) {
+        throw new HttpException(
+          'Please enter userName',
+          HttpStatus.BAD_REQUEST,
+        );
+      } else if (tenantName) {
         response = await this.appService.clientIdSecret(tenantName);
       }
-      res.send((await this.authService.getAccessToken({ ...body, ...response })).data);
+      res.send(
+        (await this.authService.getAccessToken({ ...body, ...response })).data,
+      );
       // login successful
     } catch (e) {
       console.error(e);
@@ -61,10 +100,10 @@ export class AppController {
   async logout(@Body() body: LogoutDto, @Res() res: Response) {
     try {
       const { refreshToken } = body;
-      let response: { clientId: string, clientSecret: string };
+      let response: { clientId: string; clientSecret: string };
 
       if (!body.tenantName) {
-        body.tenantName = await this.authService.getTenantName(refreshToken)
+        body.tenantName = await this.authService.getTenantName(refreshToken);
       }
 
       if (body.tenantName !== 'master') {
@@ -82,19 +121,25 @@ export class AppController {
   @ApiTags('Authentication')
   @UsePipes(new ValidationPipe())
   @ApiBody({ type: RefreshAccessTokenDto })
-  async refreshAccessToken(@Body() body: RefreshAccessTokenDto, @Res() res: Response) {
+  async refreshAccessToken(
+    @Body() body: RefreshAccessTokenDto,
+    @Res() res: Response,
+  ) {
     try {
       const { refreshToken } = body;
-      let response: { clientId: string, clientSecret: string };
+      let response: { clientId: string; clientSecret: string };
 
       if (!body.tenantName) {
-        body.tenantName = await this.authService.getTenantName(refreshToken)
+        body.tenantName = await this.authService.getTenantName(refreshToken);
       }
 
       if (body.tenantName !== 'master') {
         response = await this.appService.clientIdSecret(body.tenantName);
       }
-      res.send((await this.authService.refreshAccessToken({ ...body, ...response })).data);
+      res.send(
+        (await this.authService.refreshAccessToken({ ...body, ...response }))
+          .data,
+      );
     } catch (e) {
       console.error(e);
       throw e;
@@ -108,7 +153,7 @@ export class AppController {
     try {
       const tenantName = req.query.tenant as string;
       const redirectUrl = this.appService.createRedirectUrl(tenantName);
-      res.send({redirectUrl});
+      res.send({ redirectUrl });
     } catch (e) {
       console.error(e);
       throw e;
@@ -139,7 +184,10 @@ export class AppController {
       const token = req.headers['authorization'];
       const userName = await this.authService.getUserName(token);
 
-      const adminDetails = await this.appService.getAdminDetails(userName, token);
+      const adminDetails = await this.appService.getAdminDetails(
+        userName,
+        token,
+      );
       res.send(adminDetails);
     } catch (e) {
       console.error(e);
@@ -155,17 +203,35 @@ export class AppController {
   @UseGuards(KeycloakAuthGuard)
   @Roles([Role.r1])
   // @Permissions([Permission.p1])
-  async registerTenant(@Body() body: RegisterTenantDto, @Req() req: Request, @Res() res: Response) {
+  async registerTenant(
+    @Body() body: RegisterTenantDto,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
     try {
-      const { tenantName, userName, email, password, clientDetails, databaseName } = body;
+      const {
+        tenantName,
+        userName,
+        email,
+        password,
+        clientDetails,
+        databaseName,
+      } = body;
       const token = req.headers['authorization'];
 
-      await this.appService.createRealm({ tenantName, userName, email, password }, databaseName, token);
-      const client = await this.appService.createClient({ tenantName, clientDetails }, token);
+      await this.appService.createRealm(
+        { tenantName, userName, email, password },
+        databaseName,
+        token,
+      );
+      const client = await this.appService.createClient(
+        { tenantName, clientDetails },
+        token,
+      );
 
       const response = this.appService.register({ ...body, ...client });
       response.subscribe((result) => {
-        res.send(result)
+        res.send(result);
       });
     } catch (e) {
       console.error(e);
@@ -187,14 +253,18 @@ export class AppController {
       let tenantName: string = req.query.tenantName as string;
 
       if (tenantNameFromToken === 'master' && !tenantName) {
-        throw new HttpException(ErrorMessage.ENTER_TENANTNAME, HttpStatus.BAD_REQUEST);
-      }
-      else if (tenantNameFromToken !== 'master') {
+        throw new HttpException(
+          ErrorMessage.ENTER_TENANTNAME,
+          HttpStatus.BAD_REQUEST,
+        );
+      } else if (tenantNameFromToken !== 'master') {
         if (!tenantName) {
           tenantName = tenantNameFromToken;
-        }
-        else if (tenantName !== tenantNameFromToken) {
-          throw new HttpException(ErrorMessage.NOT_ALLOWED, HttpStatus.FORBIDDEN);
+        } else if (tenantName !== tenantNameFromToken) {
+          throw new HttpException(
+            ErrorMessage.NOT_ALLOWED,
+            HttpStatus.FORBIDDEN,
+          );
         }
       }
       const response = this.appService.getTenantConfig(tenantName);
@@ -203,10 +273,10 @@ export class AppController {
         error: (error: any) => {
           res.status(error.status).send({
             statusCode: error.status,
-            message: error.message
-          })
+            message: error.message,
+          });
         },
-      }
+      };
       response.subscribe(observer);
     } catch (e) {
       console.error(e);
@@ -226,10 +296,14 @@ export class AppController {
   listAllTenant(@Req() req: Request, @Res() res: Response) {
     try {
       const { tenantName, isDeleted, page } = req.query as any;
-      const response = this.appService.listAllTenant(tenantName, isDeleted, page);
+      const response = this.appService.listAllTenant(
+        tenantName,
+        isDeleted,
+        page,
+      );
       response.subscribe(async (result) => {
         const [data, count] = result;
-        res.send({ data, count })
+        res.send({ data, count });
       });
     } catch (e) {
       console.error(e);
@@ -247,31 +321,37 @@ export class AppController {
   async updateDescription(@Req() req: Request, @Res() res: Response) {
     try {
       const token = req.headers['authorization'];
-      const tenantNameFromToken: string = await this.authService.getTenantName(token);
+      const tenantNameFromToken: string = await this.authService.getTenantName(
+        token,
+      );
       let tenantName: string = req.body.action.tenantName;
       const newDescription: string = req.body.action.description;
 
       if (tenantNameFromToken === 'master' && !tenantName) {
-        throw new HttpException(ErrorMessage.ENTER_TENANTNAME, HttpStatus.BAD_REQUEST);
-      }
-      else if (tenantNameFromToken !== 'master') {
+        throw new HttpException(
+          ErrorMessage.ENTER_TENANTNAME,
+          HttpStatus.BAD_REQUEST,
+        );
+      } else if (tenantNameFromToken !== 'master') {
         if (!tenantName) {
           tenantName = tenantNameFromToken;
-        }
-        else if (tenantName !== tenantNameFromToken) {
+        } else if (tenantName !== tenantNameFromToken) {
           throw new HttpException('Updation Not Allowed', HttpStatus.FORBIDDEN);
         }
       }
-      const response = await this.appService.updateDescription(tenantName, newDescription);
+      const response = await this.appService.updateDescription(
+        tenantName,
+        newDescription,
+      );
       const observer = {
         next: async (result: any) => {
-          res.send(result)
+          res.send(result);
         },
         error: async (error: any) => {
           res.status(error.status).send({
             statusCode: error.status,
-            message: error.message
-          })
+            message: error.message,
+          });
         },
       };
       response.subscribe(observer);
@@ -308,7 +388,11 @@ export class AppController {
   @UseGuards(KeycloakAuthGuard)
   @Roles([Role.r2])
   @Permissions([Permission.p1])
-  async tenantUser(@Body() body: TenantUserDto, @Req() req: Request, @Res() res: Response) {
+  async tenantUser(
+    @Body() body: TenantUserDto,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
     try {
       const token = req.headers['authorization'];
       if (!req.body.tenantName) {
@@ -332,10 +416,12 @@ export class AppController {
     try {
       const data = {
         query: req.query as any,
-        token: req.headers['authorization']
-      }
+        token: req.headers['authorization'],
+      };
       if (!data.query.tenantName) {
-        data.query.tenantName = await this.authService.getTenantName(data.token);
+        data.query.tenantName = await this.authService.getTenantName(
+          data.token,
+        );
       }
       res.send(await this.appService.listAllUser(data));
     } catch (e) {
@@ -362,8 +448,7 @@ export class AppController {
       const isUser = await this.authService.checkUserRole(token);
       if (!req.query.userName) {
         req.query.userName = userName;
-      }
-      else if (isUser && req.query.userName !== userName) {
+      } else if (isUser && req.query.userName !== userName) {
         throw new HttpException(
           ErrorMessage.NOT_ALLOWED,
           HttpStatus.METHOD_NOT_ALLOWED,
@@ -394,16 +479,21 @@ export class AppController {
       const userName = await this.authService.getUserName(token);
       const isUser = await this.authService.checkUserRole(token);
       if (!isUser && !req.body.userName) {
-        throw new HttpException('Please enter userName', HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          'Please enter userName',
+          HttpStatus.BAD_REQUEST,
+        );
       }
       if (isUser && !req.body.userName) {
         req.body.userName = userName;
-      }
-      else if (isUser && req.body.userName !== userName) {
+      } else if (isUser && req.body.userName !== userName) {
         throw new HttpException(ErrorMessage.NOT_ALLOWED, HttpStatus.FORBIDDEN);
       }
       if (isUser && req.body.action.realmRoles) {
-        throw new HttpException('Roles Updation not allowed', HttpStatus.FORBIDDEN)
+        throw new HttpException(
+          'Roles Updation not allowed',
+          HttpStatus.FORBIDDEN,
+        );
       }
       res.send(await this.appService.updateUser(req.body, token));
     } catch (e) {
@@ -444,7 +534,10 @@ export class AppController {
   async createRole(@Req() req: Request, @Res() res: Response) {
     try {
       if (!req.body.tenantName) {
-        throw new HttpException(ErrorMessage.ENTER_TENANTNAME, HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          ErrorMessage.ENTER_TENANTNAME,
+          HttpStatus.BAD_REQUEST,
+        );
       }
       const token = req.headers['authorization'];
       res.send(await this.appService.createRole(req.body, token));
@@ -486,10 +579,16 @@ export class AppController {
     try {
       const token = req.headers['authorization'];
       if (!req.query.tenantName) {
-        throw new HttpException(ErrorMessage.ENTER_TENANTNAME, HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          ErrorMessage.ENTER_TENANTNAME,
+          HttpStatus.BAD_REQUEST,
+        );
       }
       if (!req.query.roleName) {
-        throw new HttpException('Please enter roleName', HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          'Please enter roleName',
+          HttpStatus.BAD_REQUEST,
+        );
       }
       res.send(await this.appService.roleInfo(req.query as any, token));
     } catch (e) {
@@ -508,10 +607,16 @@ export class AppController {
   async updateRole(@Req() req: Request, @Res() res: Response) {
     try {
       if (!req.body.tenantName) {
-        throw new HttpException(ErrorMessage.ENTER_TENANTNAME, HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          ErrorMessage.ENTER_TENANTNAME,
+          HttpStatus.BAD_REQUEST,
+        );
       }
       if (!req.body.roleName) {
-        throw new HttpException('Please enter roleName', HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          'Please enter roleName',
+          HttpStatus.BAD_REQUEST,
+        );
       }
       const token = req.headers['authorization'];
       res.send(await this.appService.updateRole(req.body, token));
@@ -606,7 +711,9 @@ export class AppController {
   async deletePermission(@Req() req: Request, @Res() res: Response) {
     try {
       const token = req.headers['authorization'];
-      res.send(await this.appService.deletePermission(req.params as any, token));
+      res.send(
+        await this.appService.deletePermission(req.params as any, token),
+      );
     } catch (e) {
       console.error(e);
       throw e;

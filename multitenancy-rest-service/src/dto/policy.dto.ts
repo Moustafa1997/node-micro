@@ -10,9 +10,9 @@ class PolicyDetails implements PolicyRepresentation {
   @ApiHideProperty()
   policies?: string[];
   @ApiHideProperty()
-  notBefore?:string;
+  notBefore?: string;
   @ApiHideProperty()
-  notOnOrAfter?:string
+  notOnOrAfter?: string;
 }
 
 export class PolicyDto {
@@ -21,7 +21,7 @@ export class PolicyDto {
   @IsString()
   tenantName: string;
 
-  policyType: string
-  clientName: string
-  policyDetails: PolicyDetails
+  policyType: string;
+  clientName: string;
+  policyDetails: PolicyDetails;
 }

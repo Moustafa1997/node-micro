@@ -1,4 +1,4 @@
 export class GetRoleInfoDto {
-  tenantName: string
-  roleName: string
+  tenantName: string;
+  roleName: string;
 }

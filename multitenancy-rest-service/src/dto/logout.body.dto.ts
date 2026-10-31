@@ -14,5 +14,5 @@ export class LogoutDto {
   clientId: string;
 
   @ApiHideProperty()
-  clientSecret: string
+  clientSecret: string;
 }
