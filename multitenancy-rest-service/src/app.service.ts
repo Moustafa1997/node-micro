@@ -2,13 +2,36 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ConnectionUtils } from './utils';
 import {
-  ClientDto, CreateRealmDto, CreateRoleDto, DbDetailsDto, DeletePermissionDto, DeleteRoleDto, DeleteUserDto,
-  GetPermissionsDto, GetRoleInfoDto, GetUsersInfoDto, PermissionDto, PolicyDto, ProvisionTenantTableDto,
-  RegisterTenantDto, ResourceDto, TenantUserDto, UpdatePermissionDto, UpdateRoleDto, UpdateUserDto, UsersQueryDto, ScopeDto
+  ClientDto,
+  CreateRealmDto,
+  CreateRoleDto,
+  DbDetailsDto,
+  DeletePermissionDto,
+  DeleteRoleDto,
+  DeleteUserDto,
+  GetPermissionsDto,
+  GetRoleInfoDto,
+  GetUsersInfoDto,
+  PermissionDto,
+  PolicyDto,
+  ProvisionTenantTableDto,
+  RegisterTenantDto,
+  ResourceDto,
+  TenantUserDto,
+  UpdatePermissionDto,
+  UpdateRoleDto,
+  UpdateUserDto,
+  UsersQueryDto,
+  ScopeDto,
 } from './dto';
 import {
-  KeycloakAuthPolicy, KeycloakAuthResource, KeycloakClient,
-  KeycloakRealm, KeycloakUser, KeycloakAuthScope, KeycloakAuthPermission
+  KeycloakAuthPolicy,
+  KeycloakAuthResource,
+  KeycloakClient,
+  KeycloakRealm,
+  KeycloakUser,
+  KeycloakAuthScope,
+  KeycloakAuthPermission,
 } from './iam';
 import { ConfigService } from '@nestjs/config';
 
@@ -25,9 +48,8 @@ export class AppService {
     private readonly keycloakAuthResource: KeycloakAuthResource,
     private readonly keycloakAuthScope: KeycloakAuthScope,
     private readonly keycloakAuthPermission: KeycloakAuthPermission,
-    private readonly config: ConfigService
-  ) { }
-
+    private readonly config: ConfigService,
+  ) {}
 
   register(tenant: RegisterTenantDto) {
     const { clientDetails, userName, ...tenantDetails } = tenant;
@@ -44,41 +66,53 @@ export class AppService {
     let clientId: string;
     let clientSecret: string;
 
-    const response = this.client1.send({ cmd: 'get-client-id-secret' }, tenantName);
+    const response = this.client1.send(
+      { cmd: 'get-client-id-secret' },
+      tenantName,
+    );
 
     await new Promise((resolve, reject) => {
       response.subscribe({
-        next: next => {
+        next: (next) => {
           {
             clientId = next.clientId;
             clientSecret = next.clientSecret;
           }
           resolve('done');
         },
-        error: error => {
+        error: (error) => {
           reject(error);
         },
       });
     });
 
-    return { clientId, clientSecret }
+    return { clientId, clientSecret };
   }
   listAllTenant(tenantName: string, isDeleted: boolean, page: number) {
-    return this.client1.send({ cmd: 'list-all-tenant' }, { tenantName, isDeleted, page });
+    return this.client1.send(
+      { cmd: 'list-all-tenant' },
+      { tenantName, isDeleted, page },
+    );
   }
   async updateDescription(tenantname: string, newdescription: string) {
-    const response = this.client2.send({ cmd: 'update-config' }, { tenantname, newdescription });
+    const response = this.client2.send(
+      { cmd: 'update-config' },
+      { tenantname, newdescription },
+    );
     await new Promise((resolve, reject) => {
       response.subscribe({
-        next: next => {
+        next: () => {
           resolve(true);
         },
-        error: error => {
+        error: (error) => {
           reject(error);
         },
       });
     });
-    return this.client1.send({ cmd: 'update-description' }, { tenantname, newdescription });
+    return this.client1.send(
+      { cmd: 'update-description' },
+      { tenantname, newdescription },
+    );
   }
   async deleteTenant(tenantname: string, token: string) {
     await this.keycloakRealm.deleteRealm(tenantname, token);
@@ -91,20 +125,30 @@ export class AppService {
   createTable(tableDto: ProvisionTenantTableDto) {
     return this.client3.send({ cmd: 'create-table' }, tableDto);
   }
-  async createRealm(tenantDetails: CreateRealmDto, dbName: string, token: string) {
+  async createRealm(
+    tenantDetails: CreateRealmDto,
+    dbName: string,
+    token: string,
+  ) {
     const { tenantName, userName, email, password } = tenantDetails;
     const response = this.client1.send({ cmd: 'check-dbName' }, dbName);
     await new Promise((resolve, reject) => {
       response.subscribe({
-        next: next => {
+        next: () => {
           resolve('done');
         },
-        error: error => {
+        error: (error) => {
           reject(error);
         },
       });
     });
-    return this.keycloakRealm.createRealm(tenantName, userName, email, password, token);
+    return this.keycloakRealm.createRealm(
+      tenantName,
+      userName,
+      email,
+      password,
+      token,
+    );
   }
   getAdminDetails(userName: string, token: string) {
     return this.keycloakUser.getAdminDetails(userName, token);
@@ -113,7 +157,7 @@ export class AppService {
     const { userDetails, ...user } = body;
     return this.keycloakUser.createUser(user, userDetails, token);
   }
-  listAllUser(data: { query: UsersQueryDto, token: string }) {
+  listAllUser(data: { query: UsersQueryDto; token: string }) {
     return this.keycloakUser.getUsers(data);
   }
   userInfo(query: GetUsersInfoDto, token: string) {
@@ -132,12 +176,12 @@ export class AppService {
   }
   createClient(body: ClientDto, token: string) {
     if (!body.clientDetails) {
-      body.clientDetails = this.keycloakClient.defaultClientDetails()
+      body.clientDetails = this.keycloakClient.defaultClientDetails();
     }
     return this.keycloakClient.createClient(body, token);
   }
   createRole(body: CreateRoleDto, token: string) {
-    const { tenantName, roleDetails } = body
+    const { tenantName, roleDetails } = body;
     return this.keycloakRealm.createRealmRoles(tenantName, roleDetails, token);
   }
   getRoles(tenantName: string, token: string) {
@@ -148,11 +192,16 @@ export class AppService {
     return this.keycloakRealm.getRealmRoleInfo(tenantName, roleName, token);
   }
   updateRole(body: UpdateRoleDto, token: string) {
-    const { tenantName, roleName, action } = body
-    return this.keycloakRealm.updateRealmRoles(tenantName, roleName, action, token);
+    const { tenantName, roleName, action } = body;
+    return this.keycloakRealm.updateRealmRoles(
+      tenantName,
+      roleName,
+      action,
+      token,
+    );
   }
   deleteRole(body: DeleteRoleDto, token: string) {
-    const { tenantName, roleName } = body
+    const { tenantName, roleName } = body;
     return this.keycloakRealm.deleteRealmRoles(tenantName, roleName, token);
   }
   createPolicy(body: PolicyDto, token: string) {
@@ -168,11 +217,16 @@ export class AppService {
     return this.keycloakAuthPermission.createPermission(body, token);
   }
   getPermissions(query: GetPermissionsDto, token: string) {
-    let { tenantName, clientName } = query;
+    const { tenantName } = query;
+    let { clientName } = query;
     if (!clientName) {
       clientName = this.keycloakClient.defaultClientDetails().clientId;
     }
-    return this.keycloakAuthPermission.getPermissions(tenantName, clientName, token);
+    return this.keycloakAuthPermission.getPermissions(
+      tenantName,
+      clientName,
+      token,
+    );
   }
   updatePermission(body: UpdatePermissionDto, token: string) {
     return this.keycloakAuthPermission.updatePermission(body, token);

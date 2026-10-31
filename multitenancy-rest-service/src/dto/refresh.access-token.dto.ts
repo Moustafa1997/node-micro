@@ -14,5 +14,5 @@ export class RefreshAccessTokenDto {
   clientId: string;
 
   @ApiHideProperty()
-  clientSecret: string
+  clientSecret: string;
 }

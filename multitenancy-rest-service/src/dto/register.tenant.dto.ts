@@ -29,10 +29,14 @@ export class RegisterTenantDto {
 
   @ApiProperty()
   @IsNotEmpty()
-  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, {
-    message: 'password must be minimum eight characters, at least one uppercase letter, one lowercase letter, one number and ' +
-      'one special character'
-  })
+  @Matches(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+    {
+      message:
+        'password must be minimum eight characters, at least one uppercase letter, one lowercase letter, one number and ' +
+        'one special character',
+    },
+  )
   password: string;
 
   @ApiProperty()
@@ -51,11 +55,11 @@ export class RegisterTenantDto {
   createdDateTime?: string;
 
   @ApiHideProperty()
-  clientDetails?: ClientDetails
+  clientDetails?: ClientDetails;
 
   @ApiHideProperty()
-  clientId?: string
+  clientId?: string;
 
   @ApiHideProperty()
-  clientSecret?: string
+  clientSecret?: string;
 }

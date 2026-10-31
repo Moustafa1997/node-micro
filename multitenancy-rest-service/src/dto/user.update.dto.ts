@@ -1,5 +1,5 @@
-import UserRepresentation from "@keycloak/keycloak-admin-client/lib/defs/userRepresentation";
-import { ApiHideProperty } from "@nestjs/swagger";
+import UserRepresentation from '@keycloak/keycloak-admin-client/lib/defs/userRepresentation';
+import { ApiHideProperty } from '@nestjs/swagger';
 
 class UserDetails implements UserRepresentation {
   firstName?: string;

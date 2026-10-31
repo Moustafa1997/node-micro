@@ -1,7 +1,7 @@
 {
-  "name": "node-rest",
+  "name": "node-micro",
   "version": "1.0.0",
-  "description": "",
+  "description": "A multitenant (database-per-tenant) IAM starter built with NestJS microservices, Keycloak and MySQL.",
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
@@ -34,15 +34,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NeoSOFT-Technologies/node-rest.git"
+    "url": "git+https://github.com/Moustafa1997/node-micro.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "nestjs",
+    "microservices",
+    "multitenancy",
+    "keycloak",
+    "mysql",
+    "typeorm",
+    "iam"
+  ],
+  "author": "Mustafa Fathy Abou El-Azm",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/NeoSOFT-Technologies/node-rest/issues"
+    "url": "https://github.com/Moustafa1997/node-micro/issues"
   },
-  "homepage": "https://github.com/NeoSOFT-Technologies/node-rest#readme",
+  "homepage": "https://github.com/Moustafa1997/node-micro#readme",
   "devDependencies": {
     "@commitlint/cli": "^17.0.1",
     "@commitlint/config-conventional": "^17.0.0",

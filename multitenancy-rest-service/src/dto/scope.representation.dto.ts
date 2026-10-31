@@ -1,14 +1,14 @@
-import { ApiHideProperty } from "@nestjs/swagger";
+import { ApiHideProperty } from '@nestjs/swagger';
 
 export class ScopeRepresentationDto {
-    name: string;
+  name: string;
 
-    @ApiHideProperty()
-    displayName?: string;
+  @ApiHideProperty()
+  displayName?: string;
 
-    @ApiHideProperty()
-    iconUri?: string;
+  @ApiHideProperty()
+  iconUri?: string;
 
-    @ApiHideProperty()
-    id?: string;
+  @ApiHideProperty()
+  id?: string;
 }

@@ -3,47 +3,47 @@ import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 
 jest.mock('@keycloak/keycloak-admin-client', () => {
-    return {
-        default: jest.fn().mockImplementation(() => {
-            return {
-                clients: {
-                    find: jest.fn().mockResolvedValue([
-                        {
-                            id: 'id',
-                            clientId: 'string',
-                        }
-                    ]),
-                    createPolicy: jest.fn()
-                },
-                setAccessToken: jest.fn()
-            };
-        })
-    };
+  return {
+    default: jest.fn().mockImplementation(() => {
+      return {
+        clients: {
+          find: jest.fn().mockResolvedValue([
+            {
+              id: 'id',
+              clientId: 'string',
+            },
+          ]),
+          createPolicy: jest.fn(),
+        },
+        setAccessToken: jest.fn(),
+      };
+    }),
+  };
 });
 
 describe('Testing Keycloak Auth Policy', () => {
-    let keycloakAuthPolicy: KeycloakAuthPolicy;
+  let keycloakAuthPolicy: KeycloakAuthPolicy;
 
-    beforeAll(async () => {
-        const module: TestingModule = await Test.createTestingModule({
-            providers: [KeycloakClient, ConfigService, KeycloakAuthPolicy],
-        }).compile();
+  beforeAll(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [KeycloakClient, ConfigService, KeycloakAuthPolicy],
+    }).compile();
 
-        keycloakAuthPolicy = module.get<KeycloakAuthPolicy>(KeycloakAuthPolicy);
-    });
+    keycloakAuthPolicy = module.get<KeycloakAuthPolicy>(KeycloakAuthPolicy);
+  });
 
-    it('Testing "createPolicy" method', async () => {
-        const body = {
-            tenantName: 'string',
-            clientName: 'string',
-            policyType: 'user',
-            policyDetails: {
-                name: "test-policy",
-                description: "test policy description"
-            }
-        };
-        const token = 'Bearer token';
-        const response = await keycloakAuthPolicy.createPolicy(body, token);
-        expect(response).toEqual('Policy created successfully');
-    });
+  it('Testing "createPolicy" method', async () => {
+    const body = {
+      tenantName: 'string',
+      clientName: 'string',
+      policyType: 'user',
+      policyDetails: {
+        name: 'test-policy',
+        description: 'test policy description',
+      },
+    };
+    const token = 'Bearer token';
+    const response = await keycloakAuthPolicy.createPolicy(body, token);
+    expect(response).toEqual('Policy created successfully');
+  });
 });

@@ -1,8 +1,8 @@
-import { ApiHideProperty } from "@nestjs/swagger"
+import { ApiHideProperty } from '@nestjs/swagger';
 
 export class GetPermissionsDto {
-  tenantName?: string
+  tenantName?: string;
 
   @ApiHideProperty()
-  clientName: string
+  clientName: string;
 }

@@ -18,18 +18,21 @@ export default class SystemLogger implements LoggerService {
       ({ level, message, label, timestamp, stack }) => {
         const log = `${timestamp} ${level} [${label}]: ${message}`;
         return stack ? `${log}\n${stack}` : log;
-      }
+      },
     );
     this.logger = createLogger({
       format: combine(
         errors({ stack: true }),
         timestamp({
-          format: 'YYYY-MM-DD HH:mm:ss'
+          format: 'YYYY-MM-DD HH:mm:ss',
         }),
         label({ label: context }),
-        customLoggerFormat
+        customLoggerFormat,
       ),
-      transports: [new transports.Console(), new transports.File({ filename: 'logs/app.log' })],
+      transports: [
+        new transports.Console(),
+        new transports.File({ filename: 'logs/app.log' }),
+      ],
     });
   }
 

@@ -16,12 +16,11 @@ export const ConnectionUtils = {
       DbConnection.connect((err) => {
         if (err) {
           res(err);
-        }
-        else {
+        } else {
           res({ Message: 'Database connected successfuly' });
         }
       });
-    })
+    });
     return Promise.resolve(await connection);
   },
 

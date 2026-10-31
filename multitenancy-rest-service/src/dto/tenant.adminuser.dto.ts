@@ -1,3 +1,3 @@
 export interface TenantAdminUser {
-    id: string
+  id: string;
 }

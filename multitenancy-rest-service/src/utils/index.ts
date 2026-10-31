@@ -1,4 +1,4 @@
-import { ConnectionUtils } from "./connection.utils";
-import httpClient from "./httpclient";
+import { ConnectionUtils } from './connection.utils';
+import httpClient from './httpclient';
 
-export { httpClient, ConnectionUtils }
+export { httpClient, ConnectionUtils };

@@ -1,5 +1,5 @@
 export class UsersQueryDto {
-  tenantName?: string
-  userName?: string
-  page?: number
+  tenantName?: string;
+  userName?: string;
+  page?: number;
 }
