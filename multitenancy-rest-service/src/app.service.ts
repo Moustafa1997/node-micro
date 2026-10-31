@@ -101,7 +101,7 @@ export class AppService {
     );
     await new Promise((resolve, reject) => {
       response.subscribe({
-        next: (next) => {
+        next: () => {
           resolve(true);
         },
         error: (error) => {
@@ -134,7 +134,7 @@ export class AppService {
     const response = this.client1.send({ cmd: 'check-dbName' }, dbName);
     await new Promise((resolve, reject) => {
       response.subscribe({
-        next: (next) => {
+        next: () => {
           resolve('done');
         },
         error: (error) => {
@@ -217,7 +217,8 @@ export class AppService {
     return this.keycloakAuthPermission.createPermission(body, token);
   }
   getPermissions(query: GetPermissionsDto, token: string) {
-    let { tenantName, clientName } = query;
+    const { tenantName } = query;
+    let { clientName } = query;
     if (!clientName) {
       clientName = this.keycloakClient.defaultClientDetails().clientId;
     }

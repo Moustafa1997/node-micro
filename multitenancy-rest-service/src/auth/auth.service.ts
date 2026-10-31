@@ -20,7 +20,8 @@ export class AuthService {
   contentType = 'application/x-www-form-urlencoded';
 
   async getAccessToken(body: CredentialsDto) {
-    let { username, password, tenantName, clientId, clientSecret } = body;
+    const { username, password, clientSecret } = body;
+    let { tenantName, clientId } = body;
 
     if (!tenantName && !clientId && !clientSecret) {
       tenantName = 'master';
@@ -47,7 +48,8 @@ export class AuthService {
   }
 
   async logout(body: LogoutDto) {
-    let { tenantName, refreshToken, clientId, clientSecret } = body;
+    const { tenantName, refreshToken, clientSecret } = body;
+    let { clientId } = body;
     if (tenantName === 'master' && !clientId && !clientSecret) {
       clientId = 'admin-cli';
     }
@@ -72,7 +74,8 @@ export class AuthService {
   }
 
   async refreshAccessToken(body: RefreshAccessTokenDto) {
-    let { tenantName, refreshToken, clientId, clientSecret } = body;
+    const { tenantName, refreshToken, clientSecret } = body;
+    let { clientId } = body;
     if (tenantName === 'master' && !clientId && !clientSecret) {
       clientId = 'admin-cli';
     }
